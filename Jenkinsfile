@@ -13,11 +13,12 @@ pipeline { // Defines a pipeline
     }
     
     stage('SonarQube Analysis') {
+      steps {
       withSonarQubeEnv() {
         sh " mvn clean verify sonar:sonar -Dsonar.projectKey=devsecops"
     }
   }
-
+}
     stage('OWASP Dependency-Check Vulnerabilities') {
       steps {
         dependencyCheck additionalArguments: ''' 
