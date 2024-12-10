@@ -14,11 +14,12 @@ pipeline { // Defines a pipeline
     
     stage('SonarQube Analysis') {
       steps {
-        withSonarQubeEnv() {
-          sh " mvn clean verify sonar:sonar -Dsonar.projectKey=devsecops"
+        sh "mvn clean verify sonar:sonar \
+           -Dsonar.projectKey=test \
+           -Dsonar.host.url=http://192.168.27.128:9002 \
+           -Dsonar.login=sqp_58fc032cd02afde85279e60d522164821f237980 "
+      }
     }
-  }
-}
     stage('OWASP Dependency-Check Vulnerabilities') {
       steps {
         dependencyCheck additionalArguments: ''' 
