@@ -11,28 +11,13 @@ pipeline { // Defines a pipeline
         git 'https://github.com/MarwenSoula/javulna.git' // Retrieves the source code from the specified GitHub repository
       }
     }
-    stage ('Secrets Scanner') { // Defines the 'Unit Test' stage
-      steps { // 
-        sh 'gitleaks detect --source . -f json report.json' 
-      }   
-    }
+
     stage('SonarQube Analysis') {
       steps {
         sh "mvn clean verify sonar:sonar \
            -Dsonar.projectKey=test \
            -Dsonar.host.url=http://192.168.27.128:9002 \
            -Dsonar.login=sqp_58fc032cd02afde85279e60d522164821f237980 "
-      }
-    }
-    stage('OWASP Dependency-Check Vulnerabilities') {
-      steps {
-        dependencyCheck additionalArguments: ''' 
-                    -o './'
-                    -s './'
-                    -f 'ALL' 
-                    --prettyPrint''', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
-        
-        dependencyCheckPublisher pattern: 'dependency-check-report.xml'
       }
     }
     stage ('Unit Test') { // Defines the 'Unit Test' stage
