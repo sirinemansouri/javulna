@@ -11,6 +11,7 @@ pipeline { // Defines a pipeline
         git 'https://github.com/MarwenSoula/javulna.git' // Retrieves the source code from the specified GitHub repository
       }
     }
+    
     stage('SonarQube Analysis') {
       withSonarQubeEnv() {
         sh " mvn clean verify sonar:sonar -Dsonar.projectKey=devsecops"
