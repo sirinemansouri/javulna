@@ -11,7 +11,11 @@ pipeline { // Defines a pipeline
         git 'https://github.com/MarwenSoula/javulna.git' // Retrieves the source code from the specified GitHub repository
       }
     }
-    
+    stage ('Secrets Scanner') { // Defines the 'Unit Test' stage
+      steps { // 
+        sh 'gitleaks detect --source . -f json report.json' 
+      }   
+    }
     stage('SonarQube Analysis') {
       steps {
         sh "mvn clean verify sonar:sonar \
