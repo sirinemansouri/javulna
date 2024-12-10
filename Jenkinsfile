@@ -11,6 +11,13 @@ pipeline { // Defines a pipeline
         git 'https://github.com/MarwenSoula/javulna.git' // Retrieves the source code from the specified GitHub repository
       }
     }
+    stage('SonarQube Analysis') {
+      def mvn = tool 'maven';
+      withSonarQubeEnv() {
+        sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=devsecops"
+    }
+  }
+
     stage('OWASP Dependency-Check Vulnerabilities') {
       steps {
         dependencyCheck additionalArguments: ''' 
