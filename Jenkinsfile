@@ -17,7 +17,7 @@ pipeline { // Defines a pipeline
         sh "mvn clean verify sonar:sonar \
            -Dsonar.projectKey=test \
            -Dsonar.host.url=http://192.168.27.128:9002 \
-           -Dsonar.login=sqp_58fc032cd02afde85279e60d522164821f237980 "
+           -Dsonar.login=sqp_dd07ec8a87477cd8432f60c4ce6de1f566f63190"
       }
     }
     stage ('Unit Test') { // Defines the 'Unit Test' stage
