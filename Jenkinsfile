@@ -44,6 +44,11 @@ pipeline { // Defines a pipeline
         sh 'docker run --name app -it -d -p 9001:8080 javulna-0.1' // Runs a new Docker container named 'app' based on the 'javulna-0.1' image, with port mapping from 8080 to 9000, in detached mode (-d), and allocates a pseudo-TTY (-it)
      }
    }
+  stage ('Secret scanner') {
+    steps {
+      sh 'gitleaks detect --source . -f json --report-path gitleaks.json || true'
+    }
+  }
  }
 }
  
