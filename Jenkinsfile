@@ -49,6 +49,11 @@ pipeline { // Defines a pipeline
       sh 'gitleaks detect --source . -f json --report-path gitleaks.json || true'
     }
   }
+  stage ('Container Scanning') {
+    steps{
+      sh 'trivy image javulna-0.1'
+    }
+  }
  }
 }
  
